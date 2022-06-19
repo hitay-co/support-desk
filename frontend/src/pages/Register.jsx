@@ -1,19 +1,38 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { registerUser, reset } from '../features/auth/authSlice';
 
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    const { name, email, password, password2 } = data;
+  useEffect(() => {
+    if (isError) toast.error(message);
+    if (isSuccess || user) navigate('/');
+    dispatch(reset());
+  }, [dispatch, isError, isSuccess, message, navigate, user]);
+
+  const onSubmit = (formData) => {
+    const { name, email, password, password2 } = formData;
 
     if (password !== password2) {
       toast.error('Passwords do not match', { icon: '❗' });
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(registerUser(userData));
     }
   };
 

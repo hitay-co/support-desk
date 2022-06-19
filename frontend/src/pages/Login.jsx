@@ -1,16 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../features/auth/authSlice';
 
 const Login = () => {
+  const { user, isLoading, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const { email, password } = data;
+  const onSubmit = (formData) => {
+    dispatch(loginUser(formData));
   };
 
   return (
