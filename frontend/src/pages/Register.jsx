@@ -4,6 +4,7 @@ import { FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 import { registerUser, reset } from '../features/auth/authSlice';
 
 const Register = () => {
@@ -11,8 +12,8 @@ const Register = () => {
     (state) => state.auth
   );
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
   useEffect(() => {
     if (isError) toast.error(message);
@@ -37,6 +38,8 @@ const Register = () => {
       dispatch(registerUser(userData));
     }
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>

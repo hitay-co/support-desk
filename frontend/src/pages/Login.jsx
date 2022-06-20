@@ -4,6 +4,7 @@ import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 import { loginUser, reset } from '../features/auth/authSlice';
 
 const Login = () => {
@@ -11,9 +12,7 @@ const Login = () => {
     (state) => state.auth
   );
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -27,6 +26,8 @@ const Login = () => {
   const onSubmit = (formData) => {
     dispatch(loginUser(formData));
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <>
