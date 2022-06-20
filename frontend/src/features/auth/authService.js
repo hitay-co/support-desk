@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/users/';
+const API_URL = '/api/users';
 
 // Register User
 const registerUser = async (userData) => {
