@@ -1,20 +1,28 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../features/auth/authSlice';
+import { loginUser, reset } from '../features/auth/authSlice';
 
 const Login = () => {
-  const { user, isLoading, isSuccess, message } = useSelector(
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const navigate = useNavigate();
+
+  const { register, handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (isError) toast.error(message);
+
+    if (isSuccess || user) navigate('/');
+
+    dispatch(reset());
+  }, [dispatch, isError, isSuccess, message, navigate, user]);
 
   const onSubmit = (formData) => {
     dispatch(loginUser(formData));

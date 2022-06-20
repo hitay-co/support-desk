@@ -17,7 +17,6 @@ const Register = () => {
   useEffect(() => {
     if (isError) toast.error(message);
 
-    // Redirect when user logged in
     if (isSuccess || user) navigate('/');
 
     dispatch(reset());
