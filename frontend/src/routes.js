@@ -6,11 +6,22 @@ const Register = lazy(() => import('../src/pages/Register'));
 const PrivateRoute = lazy(() => import('../src/components/PrivateRoute'));
 const NewTicket = lazy(() => import('../src/pages/NewTicket'));
 const Tickets = lazy(() => import('../src/pages/Tickets'));
+const Ticket = lazy(() => import('../src/pages/Ticket'));
 
 const routes = [
   { path: '/', element: <Home /> },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  {
+    path: '/ticket/:ticketId',
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/ticket/:ticketId',
+        element: <Ticket />,
+      },
+    ],
+  },
   {
     path: '/tickets',
     element: <PrivateRoute />,

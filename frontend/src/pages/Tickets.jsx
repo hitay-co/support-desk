@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import Spinner from '../components/Spinner';
-import { getTickets, reset } from '../features/tickets/ticketSlice';
 import Backbutton from '../components/BackButton';
+import Spinner from '../components/Spinner';
 import TicketItem from '../components/TicketItem';
+import { getTickets, reset } from '../features/tickets/ticketSlice';
 
 const Tickets = () => {
   const dispatch = useDispatch();
   const { tickets, isSuccess, isLoading, isError, message } = useSelector(
-    (state) => state.ticket
+    (state) => state.tickets
   );
 
   useEffect(() => {
@@ -39,9 +39,13 @@ const Tickets = () => {
           <div>Status</div>
           <div></div>
         </div>
-        {tickets.map((ticket) => (
-          <TicketItem key={ticket._id} ticket={ticket} />
-        ))}
+        {tickets.length < 1 ? (
+          <h2>No Data</h2>
+        ) : (
+          tickets.map((ticket) => (
+            <TicketItem key={ticket._id} ticket={ticket} />
+          ))
+        )}
       </div>
     </>
   );
