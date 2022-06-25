@@ -18,13 +18,13 @@ const ticketSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      required: [true, 'Please enter a description of the issue'],
+      required: true,
       enum: ['new', 'open', 'closed'],
       default: 'new',
     },
   },
   {
-    timeStamps: true,
+    timestamps: true,
   }
 );
 
