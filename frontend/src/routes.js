@@ -11,7 +11,16 @@ const routes = [
   { path: '/', element: <Home /> },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
-  { path: '/tickets', element: <Tickets /> },
+  {
+    path: '/tickets',
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/tickets',
+        element: <Tickets />,
+      },
+    ],
+  },
   {
     path: '/new-ticket',
     element: <PrivateRoute />,
