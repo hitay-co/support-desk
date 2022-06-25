@@ -1,17 +1,42 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import BackButton from '../components/BackButton';
+import Spinner from '../components/Spinner';
+import { createTicket, reset } from '../features/tickets/ticketSlice';
 
 const NewTicket = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.ticket
+  );
 
   const { register, handleSubmit } = useForm();
 
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+    if (isSuccess) {
+      navigate('/tickets');
+    }
+    dispatch(reset());
+  }, [dispatch, isError, isSuccess, message, navigate]);
+
   const onSubmit = (formData) => {
-    console.log(formData);
+    dispatch(createTicket(formData));
   };
+
+  if (isLoading) return <Spinner />;
+
   return (
     <>
+      <BackButton url='/' />
       <section className='heading'>
         <h1>Create a New Ticket</h1>
         <p>Please fill out the form below</p>
