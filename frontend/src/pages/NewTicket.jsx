@@ -21,11 +21,12 @@ const NewTicket = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      dispatch(reset());
     }
     if (isSuccess) {
       navigate('/tickets');
+      dispatch(reset());
     }
-    dispatch(reset());
   }, [dispatch, isError, isSuccess, message, navigate]);
 
   const onSubmit = (formData) => {
