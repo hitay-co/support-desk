@@ -112,7 +112,6 @@ export const ticketSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.ticket = {};
       })
       .addCase(getTicket.pending, (state) => {
         state.isLoading = true;
@@ -126,7 +125,6 @@ export const ticketSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.ticket = {};
       })
       .addCase(getTickets.pending, (state) => {
         state.isLoading = true;
@@ -140,7 +138,6 @@ export const ticketSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.tickets = [];
       })
       .addCase(closeTicket.fulfilled, (state, action) => {
         state.isLoading = false;
