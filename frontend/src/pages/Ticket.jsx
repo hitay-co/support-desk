@@ -7,11 +7,7 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import NoteItem from '../components/NoteItem';
 import { closeTicket, getTicket } from '../features/tickets/ticketSlice';
-import {
-  createNote,
-  getNotes,
-  reset as notesReset,
-} from '../features/notes/noteSlice';
+import { createNote, getNotes } from '../features/notes/noteSlice';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 
